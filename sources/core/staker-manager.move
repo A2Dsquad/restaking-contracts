@@ -179,9 +179,9 @@ module restaking::staker_manager {
       }
     }
 
-    public(friend) fun withdraw(recipient: address, token: Object<Metadata>, nonnormalized_shares: u128){
+    public(friend) fun withdraw(recipient: address, token: Object<Metadata>, shares: u128){
       let pool = staking_pool::ensure_staking_pool(token);
-      staking_pool::withdraw(recipient, pool, nonnormalized_shares);
+      staking_pool::withdraw(recipient, pool, shares);
     }
 
     public entry fun delegate(staker: &signer, operator: address) acquires StakerStore, StakerManagerConfigs{
