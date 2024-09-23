@@ -7,5 +7,6 @@ script {
     restaking::rewards_coordinator::initialize();
     restaking::avs_manager::initialize();
     restaking::earner_manager::initialize();
+    restaking::coin_wrapper::initialize();
   }
 }
