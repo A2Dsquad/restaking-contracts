@@ -230,7 +230,7 @@ module restaking::staker_manager {
 
     store.delegated_to = operator;
 
-    let (tokens, nonnormalized_token_shares) = staker_nonormalized_shares(staker);
+    let (tokens, nonnormalized_token_shares) = staker_nonnormalized_shares(staker);
 
     let tokens_length = vector::length(&tokens);
 
@@ -278,7 +278,7 @@ module restaking::staker_manager {
     }
 
   #[view]
-  public fun staker_nonormalized_shares(staker: address): (vector<Object<Metadata>>, vector<u128>) acquires StakerStore {
+  public fun staker_nonnormalized_shares(staker: address): (vector<Object<Metadata>>, vector<u128>) acquires StakerStore {
     if(!staker_store_exists(staker)){
         return (vector[], vector[])
       };

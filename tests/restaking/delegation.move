@@ -32,7 +32,7 @@ module restaking::delegation_tests {
 
     assert!(staker_manager::staker_store_exists(staker_addr), 3);
 
-    let (staked_tokens, staked_shares) = staker_manager::staker_nonormalized_shares(staker_addr);
+    let (staked_tokens, staked_shares) = staker_manager::staker_nonnormalized_shares(staker_addr);
     assert!(vector::length(&staked_tokens) == 1, 0);
     let expected_token = *vector::borrow(&staked_tokens, 0);
     assert!(object::object_address(&expected_token) == object::object_address(&token), 1);
@@ -66,14 +66,14 @@ module restaking::delegation_tests {
 
     staker_manager::remove_shares(staker_addr, token, shares_to_remove);
 
-    let (tokens_1, shares_1) = staker_manager::staker_nonormalized_shares(staker_addr);
+    let (tokens_1, shares_1) = staker_manager::staker_nonnormalized_shares(staker_addr);
     assert!(vector::length(&tokens_1) == 1, 0);
 
     let expected_shares_1 = *vector::borrow(&shares_1, 0);
     assert!(expected_shares_1 == shares_to_add - shares_to_remove, 2);
     
     staker_manager::remove_shares(staker_addr, token, shares_to_remove);
-    let (tokens_2, shares_2) = staker_manager::staker_nonormalized_shares(staker_addr);
+    let (tokens_2, shares_2) = staker_manager::staker_nonnormalized_shares(staker_addr);
     assert!(vector::length(&tokens_2) == 1, 0);
     let expected_shares_2 = *vector::borrow(&shares_2, 0);
     assert!(expected_shares_2 == 0, 2);
@@ -92,7 +92,7 @@ module restaking::delegation_tests {
     
     deposit_into_pool(staker, fa);
 
-    let (staked_tokens, staked_shares) = staker_manager::staker_nonormalized_shares(staker_addr);
+    let (staked_tokens, staked_shares) = staker_manager::staker_nonnormalized_shares(staker_addr);
     assert!(vector::length(&staked_tokens) == 1, 0);
     let expected_token = *vector::borrow(&staked_tokens, 0);
     assert!(object::object_address(&expected_token) == object::object_address(&token), 1);
@@ -217,7 +217,7 @@ module restaking::delegation_tests {
     assert!(operator_token_shares == (deposit_amount as u128), 2);
 
     let withdrawal_delay = withdrawal::withdrawal_delay(vector[token]);
-    assert!(withdrawal_delay == 24 * 3600, 0);
+    assert!(withdrawal_delay == 10, 0);
 
     let withdrawn_amount = 500u128;
     withdrawal::queue_withdrawal(
@@ -262,7 +262,7 @@ module restaking::delegation_tests {
     assert!(operator_token_shares == (deposit_amount as u128), 2);
 
     let withdrawal_delay = withdrawal::withdrawal_delay(vector[token]);
-    assert!(withdrawal_delay == 24 * 3600, 0);
+    assert!(withdrawal_delay == 10, 0);
 
     let withdrawn_amount = 500u128;
     let (
@@ -328,7 +328,7 @@ module restaking::delegation_tests {
     assert!(operator_token_shares == (deposit_amount as u128), 2);
 
     let withdrawal_delay = withdrawal::withdrawal_delay(vector[token]);
-    assert!(withdrawal_delay == 24 * 3600, 0);
+    assert!(withdrawal_delay == 10, 0);
 
     let withdrawn_amount = 500u128;
     let (
@@ -348,7 +348,7 @@ module restaking::delegation_tests {
     assert!(queued_withdrawer == staker_addr, 0);
     assert!(queued_nonce == 0, 0);
     
-    timestamp::fast_forward_seconds(withdrawal_delay - 100);
+    timestamp::fast_forward_seconds(withdrawal_delay - 5);
 
     
     withdrawal::complete_queued_withdrawal(
@@ -390,7 +390,7 @@ module restaking::delegation_tests {
     assert!(operator_token_shares == (deposit_amount as u128), 2);
 
     let withdrawal_delay = withdrawal::withdrawal_delay(vector[token]);
-    assert!(withdrawal_delay == 24 * 3600, 0);
+    assert!(withdrawal_delay == 10, 0);
 
     withdrawal::undelegate(
       staker,
