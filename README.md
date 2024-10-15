@@ -38,8 +38,7 @@
 
 ### Devnet
 
-- restaking: 
-- avs middleware: 
+- 0xc21d060c428458651decddb181cc9c23f9f03bcdaa154e111d3d90206edd11e7
 
 ## Structure
 
